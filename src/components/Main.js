@@ -9,34 +9,27 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    if (!userName)
-      api.getInitProfile()
-        .then(userData => {
-          setUserName(userData.name);
-          setUserDescription(userData.about);
-          setUserAvatar(userData.avatar);
-        })
-        .catch((err) => {
-          console.log('Ошибка инициализации данных профиля' + err);
-        });
+    //if (!userName)
+    api.getInitProfile()
+      .then(userData => {
+        setUserName(userData.name);
+        setUserDescription(userData.about);
+        setUserAvatar(userData.avatar);
+      })
+      .catch((err) => {
+        console.log('Ошибка инициализации данных профиля' + err);
+      });
 
-  }, [userName, userDescription, userAvatar]);
+  }, []);
 
   useEffect(() => {
-    if (!cards.length)
-      api.getInitialCards()
-        .then(dataCards => {
-          const cardsArr = dataCards.map(item => ({
-            id: item._id,
-            name: item.name,
-            link: item.link
-          }));
-          setCards(cardsArr);
-        })
-        .catch((err) => {
-          console.log('Ошибка инициализации данных карточек' + err);
-        });
-  }, [cards]);
+    //if (!cards.length)
+    api.getInitialCards()
+      .then(dataCards => setCards(dataCards))
+      .catch((err) => {
+        console.log('Ошибка инициализации данных карточек' + err);
+      });
+  }, []);
 
 
   return (
@@ -57,7 +50,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       </section>
       <section className="gallery common-section" aria-label="Галерея">
         <ul className="gallery__card-list">
-          {cards.map(cardItem => <Card key={cardItem.id} card={cardItem} onCardClick={onCardClick} />
+          {cards.map(cardItem => <Card key={cardItem._id} card={cardItem} onCardClick={onCardClick} />
           )}
         </ul>
       </section>
