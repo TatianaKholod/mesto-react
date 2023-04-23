@@ -4,7 +4,8 @@
   justify-self: center;
   height: 120px;
   width: 120px;
-  object-fit: cover;
-  object-position: center;
   border-radius: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }

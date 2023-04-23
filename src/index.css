@@ -1,6 +1,8 @@
+
 @import './vendor/normalize.css';
 @import './vendor/fonts/fonts.css';
 /*общие классы*/
+@import './blocks/body/body.css';
 @import './blocks/page/page.css';
 @import './blocks/common-section/common-section.css';
 @import './blocks/button-hover/button-hover.css';
@@ -48,4 +50,3 @@
 @import './blocks/popup/_button/button_inactive.css';
 @import './blocks/popup/__input/_type/popup__input_type_error.css';
 @import './blocks/popup/__caption/_margin/popup__caption_margin_min.css';
-
