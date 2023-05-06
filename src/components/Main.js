@@ -25,7 +25,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   function handleCardDelete(card) {
     api.deleteCard(card._id);
     // Формируем новый массив на основе имеющегося, без удаленной карточки
-    const newCards = cards.filter((c) => c._id !== card._id );
+    const newCards = cards.filter((c) => c._id !== card._id);
     // Обновляем стейт
     setCards(newCards);
 

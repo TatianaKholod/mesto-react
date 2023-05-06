@@ -69,7 +69,7 @@ class Api {
       headers: this.headers
     });
   }
-  
+
   changeLikeCardStatus(cardId, isLiked) {
     return isLiked ? this._setLikeCard(cardId) : this._delLikeCard(cardId);
   }

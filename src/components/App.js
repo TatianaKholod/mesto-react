@@ -5,6 +5,7 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import EditProfilePopup from './EditProfilePopup';
 
 import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -46,6 +47,13 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard(card);
   }
+
+  function handleUpdateUser({ name, about, avatar }) {
+    api.updateProfile(name, about);
+    setCurrentUser({ name, about, avatar });
+    closeAllPopups();
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -53,12 +61,7 @@ function App() {
           <Header logo={logo} />
           <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
           <Footer />
-          <PopupWithForm title="Редактировать профиль" name="editProfile" textSubmit="Сохранить" onClose={closeAllPopups} isOpen={isEditProfilePopupOpen}>
-            <input name="name" type="text" className="popup__input" placeholder="Имя" required minLength="2" maxLength="40" />
-            <span className="popup__input-error name-error"></span>
-            <input name="job" type="text" className="popup__input" placeholder="О себе" required minLength="2" maxLength="200" />
-            <span className="popup__input-error job-error"></span>
-          </PopupWithForm>
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <PopupWithForm title="Новое место" name="addCard" textSubmit="Создать" onClose={closeAllPopups} isOpen={isAddPlacePopupOpen}>
             <input name="name-card" type="text" className="popup__input" placeholder="Название" required minLength="2"
               maxLength="30" />
