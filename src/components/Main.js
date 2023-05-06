@@ -22,6 +22,15 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
     });
   }
 
+  function handleCardDelete(card) {
+    api.deleteCard(card._id);
+    // Формируем новый массив на основе имеющегося, без удаленной карточки
+    const newCards = cards.filter((c) => c._id !== card._id );
+    // Обновляем стейт
+    setCards(newCards);
+
+  }
+
   useEffect(() => {
     api.getInitialCards()
       .then(dataCards => setCards(dataCards))
@@ -49,7 +58,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       </section>
       <section className="gallery common-section" aria-label="Галерея">
         <ul className="gallery__card-list">
-          {cards.map(cardItem => <Card key={cardItem._id} card={cardItem} onCardClick={onCardClick} onCardLike={handleCardLike} />
+          {cards.map(cardItem => <Card key={cardItem._id} card={cardItem} onCardClick={onCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
           )}
         </ul>
       </section>
