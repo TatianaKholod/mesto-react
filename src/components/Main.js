@@ -14,21 +14,23 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
     const isLiked = card.likes.some(i => i._id === idUser);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
-      const newCards = cards.map((c) => c._id === card._id ? newCard : c);
-      // Обновляем стейт
-      setCards(newCards);
-    });
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
+        const newCards = cards.map((c) => c._id === card._id ? newCard : c);
+        // Обновляем стейт
+        setCards(newCards);
+      });
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id);
-    // Формируем новый массив на основе имеющегося, без удаленной карточки
-    const newCards = cards.filter((c) => c._id !== card._id);
-    // Обновляем стейт
-    setCards(newCards);
-
+    api.deleteCard(card._id)
+      .then(() => {
+        // Формируем новый массив на основе имеющегося, без удаленной карточки
+        const newCards = cards.filter((c) => c._id !== card._id);
+        // Обновляем стейт
+        setCards(newCards);
+      });
   }
 
   useEffect(() => {

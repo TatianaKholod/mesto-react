@@ -6,6 +6,7 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
 
 import api from '../utils/Api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -48,12 +49,21 @@ function App() {
     setSelectedCard(card);
   }
 
-  function handleUpdateUser({ name, about, avatar }) {
-    api.updateProfile(name, about);
-    setCurrentUser({ name, about, avatar });
-    closeAllPopups();
+  function handleUpdateUser({ name, about }) {
+    api.updateProfile(name, about)
+      .then((data) => {
+        setCurrentUser(data);
+        closeAllPopups();
+      });
   }
 
+  function handleUpdateAvatar({ avatar }) {
+    api.updateAvatar(avatar)
+      .then((data) => {
+        setCurrentUser(data);
+        closeAllPopups();
+      });
+  }
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -62,16 +72,13 @@ function App() {
           <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} />
           <Footer />
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
           <PopupWithForm title="Новое место" name="addCard" textSubmit="Создать" onClose={closeAllPopups} isOpen={isAddPlacePopupOpen}>
             <input name="name-card" type="text" className="popup__input" placeholder="Название" required minLength="2"
               maxLength="30" />
             <span className="popup__input-error name-card-error"></span>
             <input name="src-card" type="url" className="popup__input" placeholder="Ссылка на картинку" required />
             <span className="popup__input-error src-card-error"></span>
-          </PopupWithForm>
-          <PopupWithForm title="Обновить аватар" name="updateAvatar" textSubmit="Сохранить" onClose={closeAllPopups} isOpen={isEditAvatarPopupOpen}>
-            <input name="src-avatar" type="url" className="popup__input" placeholder="Ссылка на аватар" required />
-            <span className="popup__input-error src-avatar-error"></span>
           </PopupWithForm>
           <PopupWithForm title="Вы уверены?" name="delCard" textSubmit="Да" isOpen={false} onClose={closeAllPopups}>
           </PopupWithForm>
