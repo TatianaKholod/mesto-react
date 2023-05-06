@@ -56,18 +56,22 @@ class Api {
     });
   }
 
-  setLikeCard(cardId) {
+  _setLikeCard(cardId) {
     return this._request(`/cards/likes/${cardId}`, {
       method: 'PUT',
       headers: this.headers
     });
   }
 
-  delLikeCard(cardId) {
+  _delLikeCard(cardId) {
     return this._request(`/cards/likes/${cardId}`, {
       method: 'DELETE',
       headers: this.headers
     });
+  }
+  
+  changeLikeCardStatus(cardId, isLiked) {
+    return isLiked ? this._setLikeCard(cardId) : this._delLikeCard(cardId);
   }
 
   updateAvatar(avatar) {

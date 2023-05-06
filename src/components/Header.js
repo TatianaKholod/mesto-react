@@ -1,4 +1,3 @@
-
 function Header({ logo }) {
   return (
     <header className="header">

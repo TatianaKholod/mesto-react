@@ -12,4 +12,5 @@
   background-repeat: no-repeat;
   object-fit: contain;
   background-position: center;
+  visibility: hidden;
 }
