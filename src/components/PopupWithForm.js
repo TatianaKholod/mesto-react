@@ -6,7 +6,7 @@ function PopupWithForm({ isOpen, name, title, textSubmit, children, onClose, onS
         <form name={name} className="popup__form" onSubmit={onSubmit} >
           <h2 className="popup__caption">{title}</h2>
           {children}
-          <button name="save-button" type="submit" className="popup__button-save button-hover">{textSubmit} </button>
+          <button name="save-button" type="submit" className="popup__button-save button-hover" disabled={textSubmit.includes('...')? true : false}>{textSubmit}</button>
         </form>
       </div>
     </div>
