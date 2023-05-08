@@ -3,8 +3,7 @@ function Header({ logo }) {
     <header className="header">
       <img className="header__logo" alt="Логотип проекта - Место" src={logo} />
     </header>
-
   );
 }
 
-export default Header; 
+export default Header;
